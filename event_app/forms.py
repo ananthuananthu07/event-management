@@ -4,7 +4,7 @@ from .models import EventsClass, Categories, CompanyProfile, Review, Appointment
     Payment
 from event_app.models import User
 
-
+#FORMS NEEDED
 class CustomRegistrationForm(UserCreationForm):
     is_company = forms.BooleanField(required=False,
                                     widget=forms.CheckboxInput(attrs={'class': 'form-check-input'}),
