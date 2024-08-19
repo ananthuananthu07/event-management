@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+    <link href="{% static 'images/favicon.png'%}" rel="icon">
+    <link href="{% static 'images/apple-touch-icon.png'%}" rel="apple-touch-icon">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.gstatic.com" rel="preconnect">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+
+    <!-- Vendor css Files -->
+    <link href="{% static 'assets/vendor/bootstrap/css/bootstrap.min.css'%}" rel="stylesheet">
+    <link href="{% static 'assets/vendor/bootstrap-icons/bootstrap-icons.css'%}" rel="stylesheet">
+    <link href="{% static 'assets/vendor/boxicons/css/boxicons.min.css'%}" rel="stylesheet">
+    <link href="{% static 'assets/vendor/quill/quill.snow.css'%}" rel="stylesheet">
+    <link href="{% static 'assets/vendor/quill/quill.bubble.css'%}" rel="stylesheet">
+    <link href="{% static 'assets/vendor/remixicon/remixicon.css'%}" rel="stylesheet">
+    <link href="{% static 'assets/vendor/simple-datatables/style.css'%}" rel="stylesheet">
+
+    <!-- Template Main css File -->
+    <link rel="stylesheet" href="{% static 'assets/css/style.css'%}">
+</head>
+
+<body>
+
+<!-- ======= Header ======= -->
+<header id="header" class="header fixed-top d-flex align-items-center">
+    <div class="d-flex align-items-center justify-content-between">
+        <a href="index.html" class="logo d-flex align-items-center">
+            <img src="assets/img/logo.png" alt="">
+            <span class="d-none d-lg-block">Lawyer Community</span>
+        </a>
+        <i class="bi bi-list toggle-sidebar-btn"></i>
+    </div><!-- End Logo -->
+
+    <nav class="header-nav ms-auto">
+        <ul class="d-flex align-items-center">
+            <li class="nav-item d-block d-lg-none">
+                <a class="nav-link nav-icon search-bar-toggle" href="#">
+                    <i class="bi bi-search"></i>
+                </a>
+            </li><!-- End Search Icon-->
+
+
+
+<li class="nav-item dropdown">
+    <a class="nav-link nav-icon" href="{% url 'notifications' %}">
+        <i class="bi bi-bell"></i>
+        <span id="notificationCount" class="badge bg-primary badge-number">{{ notification_count }}</span>
+    </a><!-- End Notification Icon -->
+</li><!-- End Notification Nav -->
+
+              <li class="nav-item" style="margin-right: 30px">
+                                <a class="nav-link" href="{% url 'profile' %}">Profile</a>
+                            </li>
+          <li class="nav-item" style="margin-right: 20px">
+                                <a class="nav-link" href="{% url 'logout' %}">Logout</a>
+                            </li>
+            <li class="nav-item" style="margin-right: 6px">
+                                <a class="nav-link" href="{% url 'reset_password' %}">Change Password</a>
+                            </li>
+            </li><!-- End Profile Nav -->
+        </ul>
+    </nav><!-- End Icons Navigation -->
+</header><!-- End Header -->
+
+<!-- ======= Sidebar ======= -->
+<aside id="sidebar" class="sidebar">
+    <ul class="sidebar-nav" id="sidebar-nav">
+        <li class="nav-item">
+            <a class="nav-link" href="{% url 'profile' %}">
+                <i class="bi bi-grid"></i>
+                <span>Home</span>
+            </a>
+        </li><!-- End Dashboard Nav -->
+
+        <li class="nav-heading">Pages</li>
+
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="{% url 'profile' %}">
+                <i class="bi bi-person"></i>
+                <span>Profile</span>
+            </a>
+        </li><!-- End Profile Page Nav -->
+
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="{% url 'payments' %}">
+                <i class="bi bi-envelope"></i>
+                <span>View Payments</span>
+            </a>
+        </li><!-- End Contact Page Nav -->
+
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="{% url 'company_bookings' %}">
+
+                <i class="bi bi-book"></i>
+                <span>View Bookings</span>
+            </a>
+        </li>
+
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="{% url 'contact_list' %}">
+    <i class="bi bi-people"></i>
+    <span>Contact List</span>
+        </a>
+        </li>
+
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="{% url 'add_gallery_photo' %}">
+                <i class="bi bi-envelope"></i>
+                <span>Add Gallery</span>
+            </a>
+        </li>
+
+
+    </ul>
+</aside><!-- End Sidebar -->
+
+{% block content %}
+{% endblock %}
+
+<!-- Template JavaScript Files -->
+<script src="{% static 'assets/js/custom.js' %}"></script>
+<script src="{% static 'assets/js/main.js' %}"></script>
+<script src="{% static 'assets/vendor/apexcharts/apexcharts.min.js' %}"></script>
+<script src="{% static 'assets/vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+<script src="{% static 'assets/vendor/chart.js/chart.umd.js' %}"></script>
+<script src="{% static 'assets/vendor/echarts/echarts.min.js' %}"></script>
+<script src="{% static 'assets/vendor/quill/quill.min.js' %}"></script>
+<script src="{% static 'assets/vendor/simple-datatables/simple-datatables.js' %}"></script>
+<script src="{% static 'assets/vendor/tinymce/tinymce.min.js' %}"></script>
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
+
+<script>
+    // Initialize flatpickr
+    flatpickr('.flatpickr', {
+        enableTime: true,
+        dateFormat: "Y-m-d H:i",
+        // You can customize other options as needed
+    });
+
+    // Initialize dropdowns
+    document.addEventListener("DOMContentLoaded", function() {
+        var dropdownMenuList = document.querySelectorAll('.dropdown-menu');
+        dropdownMenuList.forEach(function(dropdownMenu){
+            new bootstrap.Dropdown(dropdownMenu);
+        });
+    });
+
+     document.addEventListener('DOMContentLoaded', function () {
+        updateNotificationCount();
+    });
+
+
+    function markNotificationRead(notificationId) {
+    fetch('/mark_notification_read/' + notificationId + '/', {
+        method: 'GET',
+        headers: {
+            'X-Requested-With': 'XMLHttpRequest',
+            'X-CSRFToken': getCookie('csrftoken')
+        }
+    })
+    .then(response => {
+        if (response.ok) {
+            updateNotificationCount();
+        } else {
+            console.error('Failed to mark notification as read');
+        }
+    })
+    .catch(error => {
+        console.error('Error marking notification as read:', error);
+    });
+}
+
+function updateNotificationCount() {
+    fetch('{% url 'notification_count' %}')
+        .then(response => response.json())
+        .then(data => {
+            document.getElementById('notificationCount').textContent = data.notification_count;
+        })
+        .catch(error => {
+            console.error('Error fetching notification count:', error);
+        });
+}
+
+</script>
+
+</body>
+</html>

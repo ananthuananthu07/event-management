@@ -1,0 +1,139 @@
+<!--&lt;!&ndash; category_companies.html &ndash;&gt;-->
+<!-- category_companies.html -->
+
+{% extends 'event_export/event_base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="category-companies-container">
+    <style>
+        /* styles.css */
+
+        .category-companies-container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .category-companies-container h4 {
+            font-size: 32px; /* Increased font size */
+            color: #ff6363; /* Vibrant red color */
+            margin-bottom: 20px; /* Increased margin */
+            font-weight: bold; /* Bold font */
+            text-transform: uppercase; /* Uppercase text */
+            letter-spacing: 1px; /* Increased letter spacing */
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1); /* Text shadow */
+        }
+
+        .category-companies-container p {
+            font-size: 18px;
+            color: #777;
+            margin-bottom: 20px;
+        }
+
+        .category-companies-container .company-list {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .category-companies-container .company-item {
+            margin-bottom: 30px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: box-shadow 0.3s ease;
+            background-color: #fff;
+        }
+
+        .category-companies-container .company-item:hover {
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
+
+        .category-companies-container .company-item img {
+            width: 150px;
+            height: 150px;
+            object-fit: cover;
+            float: left;
+            margin-right: 20px;
+        }
+
+        .category-companies-container .company-details {
+            padding: 20px;
+        }
+
+        .category-companies-container .company-details h3 {
+            margin-top: 0;
+            font-size: 24px;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .category-companies-container .company-details p {
+            margin: 5px 0;
+            font-size: 16px;
+            color: #777;
+        }
+
+        .category-companies-container .company-details a {
+            color: #007bff;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .no-companies {
+            font-size: 20px;
+            color: #555;
+            margin-top: 30px;
+        }
+
+    </style><br><br><br><br>
+    <h4>Companies Offering {{ category.event_name }}</h4>
+<!--    <p>Description: {{ category.event_des }}</p>-->
+<!--    <p>Prize: {{ category.event_prize }}</p>-->
+    {% if companies %}
+        <ul class="company-list">
+            {% for company in companies %}
+                <li class="company-item">
+                    <img src="{{ company.comp_image.url }}" alt="Company Image">
+                    <div class="company-details">
+                        <h3><a href="{% url 'compview' company.id %}">{{ company.user.username }}</a></h3>
+                        <p>Contact: {{ company.comp_contact }}</p>
+                        <p>Location: {{ company.comp_location }}</p>
+                        <p>Agent: {{ company.comp_agent }}</p>
+                    </div>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p class="no-companies">No companies are currently offering this service.</p>
+    {% endif %}
+</div>
+{% endblock %}
+
+
+
+
+
+<!--    <div class="container"><br><br><br><br>-->
+<!--        <h4>Companies Offering {{ category.event_name }}</h4>-->
+<!--        <p>Description: {{ category.event_des }}</p>-->
+<!--        <p>Prize: {{ category.event_prize }}</p>-->
+<!--        <h4>Available Companies:</h4>-->
+<!--        {% if companies %}-->
+<!--            <ul>-->
+<!--                {% for company in companies %}-->
+<!--                    <li>-->
+<!--<a href="{% url 'category_companies' company.id %}">{{ company.user.username }}</a>-->
+<!--                        <p>Contact: {{ company.comp_contact }}</p>-->
+<!--                        <p>Location: {{ company.comp_location }}</p>-->
+<!--                        <p>Agent: {{ company.comp_agent }}</p>-->
+<!--                    </li>-->
+<!--                {% endfor %}-->
+<!--            </ul>-->
+<!--        {% else %}-->
+<!--            <p>No companies are currently offering this service.</p>-->
+<!--        {% endif %}-->
+<!--    </div>-->

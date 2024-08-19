@@ -1,0 +1,64 @@
+{% extends 'event_export/event_base.html' %}
+
+{% block content %}
+<div class="container"><br><br><br><br>
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header">Notifications</div>
+
+                <div class="card-body">
+                    {% for notification in notifications %}
+                    <div class="alert alert-info" role="alert">
+                        {{ notification.content }}
+                        <form action="{% url 'mark_notification_read' notification.id %}" method="POST" class="mark-as-read-form">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-sm btn-primary float-end" style="margin-top: -27px;">Mark as Read</button>
+                        </form>
+                    </div>
+                    {% empty %}
+                    <div class="alert alert-warning" role="alert">
+                        No new notifications
+                    </div>
+                    {% endfor %}
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+$(document).ready(function() {
+    $('.mark-as-read').on('click', function(event) {
+        event.preventDefault();
+        var notificationId = $(this).data('notification-id');
+
+        // Get CSRF token
+        var csrftoken = getCookie('csrftoken');
+
+        $.ajax({
+            url: '/mark_notification_read/' + notificationId + '/',
+            type: 'POST',
+            headers: {
+                'X-CSRFToken': csrftoken
+            },
+            success: function(data) {
+                $(event.target).closest('.alert').remove();
+                var notificationCount = data.notification_count;
+                $('.notification-count').text(notificationCount);
+            },
+            error: function(xhr, status, error) {
+                console.error(error);
+            }
+        });
+    });
+});
+
+
+</script>
+{% endblock %}
+
+
+

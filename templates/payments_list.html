@@ -1,0 +1,145 @@
+<!--&lt;!&ndash; payments.html &ndash;&gt;-->
+
+<!-- payments.html -->
+
+{% extends 'event_export/company_base.html' %}
+
+{% block content %}
+<head>
+<style>
+  table {
+    width: 78%;
+    border-collapse: collapse;
+    border-spacing: 0;
+    margin-top: 20px;
+    margin-left: 310px;
+  }
+
+  th, td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+  }
+
+  th {
+    background-color: #f2f2f2;
+    color: #333;
+  }
+
+  tr:nth-child(even) {
+    background-color: #f2f2f2;
+  }
+
+  tr:hover {
+    background-color: #ddd;
+  }
+
+  .no-payments {
+    margin-top: 20px;
+    font-style: italic;
+  }
+</style>
+      <script>
+        function confirmDelete(form) {
+            if (confirm("Are you sure you want to delete this payment?")) {
+                // If user confirms, submit the form
+                form.submit();
+                alert("Item successfully deleted.");
+            }
+        }
+    </script>
+</head>
+<br>
+<h3 style="text-align:center; margin-top:50px;">YOUR PAYMENTS</h3>
+
+{% if company_payments %}
+<table>
+  <thead>
+    <tr>
+      <th>Option Selected</th>
+      <th>Bank Name</th>
+      <th>Account Number</th>
+      <th>IFSC Code</th>
+      <th>Email</th>
+      <th>Mobile Number</th>
+      <th>Card Holder Name</th>
+      <th>Card Number</th>
+      <th>CVV Number</th>
+      <th>Expiry Date</th>
+      <th>Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for payment in company_payments %}
+    <tr>
+      <td>{{ payment.option }}</td>
+      <td>{{ payment.bank_name }}</td>
+      <td>{{ payment.account_number }}</td>
+      <td>{{ payment.ifsc_code }}</td>
+      <td>{{ payment.email }}</td>
+      <td>{{ payment.mobile_number }}</td>
+      <td>{{ payment.card_holder_name }}</td>
+      <td>{{ payment.card_number }}</td>
+      <td>{{ payment.cvv_number }}</td>
+      <td>{{ payment.expiry_date }}</td>
+      <td>
+        <form action="{% url 'delete_payment' payment.id %}" method="post" onsubmit="confirmDelete(this); return false;">
+          {% csrf_token %}
+          <button type="submit" class="delete-btn">Delete</button>
+        </form>
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% else %}
+<p class="no-payments; mt-5" style="margin-left:350px;">Sorry!, No payments found for you currently.</p>
+{% endif %}
+{% endblock %}
+
+
+
+
+
+
+
+
+
+<!--<h1>Your Payments</h1>-->
+
+<!--{% if company_payments %}-->
+<!--<table>-->
+<!--  <thead>-->
+<!--    <tr>-->
+<!--      <th>Option Selected</th>-->
+<!--      <th>Bank Name</th>-->
+<!--      <th>Account Number</th>-->
+<!--      <th>IFSC Code</th>-->
+<!--      <th>Email</th>-->
+<!--      <th>Mobile Number</th>-->
+<!--      <th>Card Holder Name</th>-->
+<!--      <th>Card Number</th>-->
+<!--      <th>CVV Number</th>-->
+<!--      <th>Expiry Date</th>-->
+<!--    </tr>-->
+<!--  </thead>-->
+<!--  <tbody>-->
+<!--    {% for payment in company_payments %}-->
+<!--    <tr>-->
+<!--      <td>{{ payment.option }}</td>-->
+<!--      <td>{{ payment.bank_name }}</td>-->
+<!--      <td>{{ payment.account_number }}</td>-->
+<!--      <td>{{ payment.ifsc_code }}</td>-->
+<!--      <td>{{ payment.email }}</td>-->
+<!--      <td>{{ payment.mobile_number }}</td>-->
+<!--      <td>{{ payment.card_holder_name }}</td>-->
+<!--      <td>{{ payment.card_number }}</td>-->
+<!--      <td>{{ payment.cvv_number }}</td>-->
+<!--      <td>{{ payment.expiry_date }}</td>-->
+<!--    </tr>-->
+<!--    {% endfor %}-->
+<!--  </tbody>-->
+<!--</table>-->
+<!--{% else %}-->
+<!--<p>No payments found for the selected company type.</p>-->
+<!--{% endif %}-->

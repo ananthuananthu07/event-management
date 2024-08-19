@@ -1,0 +1,98 @@
+{% extends 'event_export/company_base.html' %}
+
+{% block content %}
+<style>
+    .chat-container {
+
+        max-width: 80px;
+        margin: 0 auto;
+        display: flex;
+        flex-direction: column;
+        height: 100vh; /* Set the chat container to fill the viewport height */
+        position: relative; /* Make the container a reference for absolute positioning */
+    }
+
+
+    .chat-messages {
+    margin-left: 270px;
+        flex: 1; /* Make the chat messages container flexible to occupy remaining space */
+        overflow-y: auto; /* Enable vertical scrolling for messages */
+        padding-bottom: 60px; /* Reserve space for the input form */
+    }
+
+    .message {
+        margin-bottom: 12px;
+        padding: 10px;
+        border-radius: 5px;
+    }
+
+    .sent {
+        background-color: #DCF8C6; /* Light green */
+        text-align: right;
+    }
+
+    .received {
+        background-color: #EAEAEA; /* Light gray */
+        text-align: left;
+    }
+
+      .fixed-form {
+        position: fixed; /* Position the form fixed */
+                margin-left: 260px;
+                margin-bottom: 23px;
+
+        bottom: 0; /* Stick it to the bottom */
+        padding: 5px;
+        width: 70%;
+        background-color: #fff;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        align-items: center; /* Center the items vertically */
+        height: -40px;
+    }
+
+    form input[type="text"] {
+    width: 90%;
+    height: 50px;
+        flex: 1;
+        padding: 8px;
+        border: none;
+        border-radius: 5px;
+        margin-right: 10px; /* Add some space between input field and button */
+        max-width: calc(100% - 90px); /* Set maximum width to fill remaining space */
+    }
+
+    form button {
+
+        padding: 10px 20px;
+        background-color: #4CAF50; /* Green */
+        border: none;
+        color: white;
+        border-radius: 5px;
+        cursor: pointer;
+          margin-left: 10px;
+    }
+
+    form button:hover {
+        background-color: #45a049;
+    }
+</style>
+<div class="container" style="margin-left: 100px"><br><br><br><br>
+    <h4 style="margin-left: 250px">Chat with {{ user.username }}</h4>
+    <div class="chat-messages">
+        {% for message in messages %}
+            <div class="message {% if message.sender == request.user %}sent{% else %}received{% endif %}">
+                <p>{{ message.timestamp|date:"F d, Y, H:i a" }} - {{ message.content }}</p>
+            </div>
+        {% endfor %}
+    </div>
+            <div class="fixed-form"> <!-- Add fixed-form class here -->
+
+    <form method="post">
+        {% csrf_token %}
+        {{ form.content }}
+        <button type="submit">Send</button>
+    </form>
+            </div>
+</div>
+{% endblock %}

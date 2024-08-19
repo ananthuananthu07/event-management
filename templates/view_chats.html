@@ -1,0 +1,32 @@
+<!-- view_chats.html -->
+
+{% extends 'event_export/profile.html' %}
+
+{% block content %}
+
+<head>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+</head>
+<div class="container"><br><br>
+
+<h4>Your Chat History</h4>
+
+{% if company_names %}
+  <ul>
+
+    {% for company in company_names %}
+      <li style="line-height:24px;">{{ company.user }} - {{ company.comp_location }}
+          <a href="{% url 'chat_with_company' company.id %}" style="text-decoration:none;">
+              <i class="fas fa-comment"  style="color: #333;"></i></a></li>
+    {% endfor %}
+  </ul>
+{% else %}
+  <p>No chat history available.</p>
+{% endif %}
+
+
+
+</div>
+
+{% endblock %}

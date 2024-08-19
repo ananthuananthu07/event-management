@@ -1,0 +1,49 @@
+{% extends 'event_export/event_base.html' %}
+
+{% block content %}
+<head>
+    <title>Booking Success</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            text-align: center;
+            margin-top: 50px;
+        }
+
+        h1 {
+            color: #007bff;
+            font-size: 36px;
+            margin-bottom: 20px;
+        }
+
+        p {
+            font-size: 18px;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        a {
+            color: #007bff;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body><br><br><br><br><br>
+
+    <h1>Booking Successful!</h1>
+<p>Thank you for booking with us. Click <a href="{% url 'select_payment_option' booking_id=booking.id %}">here</a> to proceed to payment options.</p>
+{% endblock %}
+
+
+
+
+
+
+<!--<h3>HI, BOOKING IS SUCCESSFULL</h3>-->
+<!--<p>Click <a href="#">Here</a> to proceed to payment options </p>-->

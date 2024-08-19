@@ -1,0 +1,143 @@
+{% extends 'event_export/event_base.html' %}
+
+{% block content %}
+    <style>
+        /* CSS Styles */
+        .payment-form-container {
+            margin: 50px auto;
+            width: 95%; /* Increased width */
+            max-width: 600px; /* Adjusted max-width */
+            background-color: #f1f1f1; /* Light gray background */
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+        }
+
+        .payment-form-header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .payment-form-header h3 {
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .payment-form {
+            text-align: center;
+        }
+
+        .payment-form label {
+            display: block;
+            margin-bottom: 10px;
+            color: #666; /* Dark gray label color */
+        }
+
+        .payment-form input[type="text"],
+        .payment-form input[type="email"],
+        .payment-form select {
+            width: calc(100% - 20px);
+            padding: 8px; /* Reduced padding */
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+            transition: border-color 0.3s;
+            font-size: 14px; /* Reduced font size */
+        }
+
+        .payment-form input[type="text"]:focus,
+        .payment-form input[type="email"]:focus,
+        .payment-form select:focus {
+            border-color: #ff6b6b; /* Light red border color on focus */
+        }
+
+        .payment-form button[type="submit"] {
+            width: 30%;
+            padding: 12px;
+            background-color: #ff6b6b; /* Light red button background */
+            color: #fff; /* White button text color */
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .payment-form button[type="submit"]:hover {
+            background-color: #ff4d4d; /* Slightly darker red on hover */
+        }
+
+        .error-message {
+            color: #ff0000; /* Red color for error message */
+            margin-top: 5px;
+        }
+    </style>
+
+    <br><br>
+
+    <div class="payment-form-container">
+        <div class="payment-form-header">
+            <h3>Net Banking Payment</h3>
+             <marquee behavior="scrollamount"  direction="left"  scrollamount="7"  id="mar1" style="color: red">
+  You may need to pay additional charges if extra features added other than default options</marquee>
+        </div>
+<form method="post" class="payment-form" action="{% url 'net_banking_payment' booking_id=booking.id %}">
+    {% csrf_token %}
+    <label for="bank_name">Bank Name:</label>
+    <select name="bank_name" id="bank_name">
+        <option value="" selected disabled>Select Bank</option>
+        <option value="SBI">State Bank of India</option>
+        <option value="Union">Union Bank</option>
+        <option value="Axis">Axis Bank</option>
+        <option value="Federal">Federal Bank</option>
+        <option value="Grameen">Grameen Bank</option>
+        <option value="Coperative">Coperative Bank</option>
+        <!-- Add more options as needed -->
+    </select>
+    <br><br>
+    <label for="account_number">Account Number:</label>
+<input type="text" id="account_number" name="account_number" placeholder="Enter your 14 digit account number" required maxlength="14">
+    {% if form.account_number.errors %}
+        <div class="error-message">
+            {% for error in form.account_number.errors %}
+                {% if "Ensure this value has at most 14 characters" not in error %}
+                    {{ error }}
+                {% endif %}
+            {% endfor %}
+        </div>
+    {% endif %}
+    <br><br>
+    <label for="ifsc_code">IFSC Code:</label>
+    <input type="text" id="ifsc_code" name="ifsc_code" placeholder="Enter your 15 digit IFSC Code" required minlength="15" maxlength="15">
+    {% if form.ifsc_code.errors %}
+        <div class="error-message">
+            {% for error in form.ifsc_code.errors %}
+                {{ error }}
+            {% endfor %}
+        </div>
+    {% endif %}
+    <br><br>
+    <label for="amount">Amount:</label>
+    <input type="text" id="amount" name="amount" value="100" disabled>
+    <br><br>
+    <label for="email">Email:</label>
+    <input type="email" id="email" placeholder="Enter your email id" name="email" required>
+    <br><br>
+    <label for="mobile_number">Mobile Number:</label>
+    <input type="text" id="mobile_number" placeholder="Enter your mobile number" name="mobile_number" required>
+    <br><br>
+    <button type="submit">Pay Now</button>
+</form>
+        {% if form.errors %}
+            <div class="error-message">
+                {% for field, error_list in form.errors.items %}
+                    {% for error in error_list %}
+                        {% if "Ensure this value has at most 14 characters" not in error %}
+                            {{ error }}
+                        {% endif %}
+                    {% endfor %}
+                {% endfor %}
+            </div>
+        {% endif %}
+    </div>
+{% endblock %}

@@ -1,0 +1,232 @@
+
+{% extends 'event_export/event_base.html' %}
+
+{% load static %}
+{% block title%}Company-profile
+{% endblock %}
+{% block content%}
+
+
+
+
+  <main id="main" class="main mt-5">
+
+
+    <section class="section profile mt-5">
+      <div class="row mt-5">
+        <div class="col-xl-4">
+
+          <div class="card">
+            <div class="card-body profile-card pt-4 d-flex flex-column align-items-center">
+             <img src="{{ form.profile_picture.value.url }}" alt="Profile" class="rounded-circle">
+
+              <h2>{{ comp_profile.user.first_name }}</h2>
+              <h3>{{ comp_profile.comp_name }}</h3>
+              <div class="social-links mt-2">
+                <a href="#" class="twitter"><i class="bi bi-twitter"></i></a>
+                <a href="#" class="facebook"><i class="bi bi-facebook"></i></a>
+                <a href="#" class="instagram"><i class="bi bi-instagram"></i></a>
+                <a href="#" class="linkedin"><i class="bi bi-linkedin"></i></a>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="col-xl-8">
+
+          <div class="card">
+            <div class="card-body pt-3">
+              <!-- Bordered Tabs -->
+              <ul class="nav nav-tabs nav-tabs-bordered">
+
+                <li class="nav-item">
+                  <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#profile-overview">Overview</button>
+                </li>
+
+                <li class="nav-item">
+                  <button class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-edit">Edit Profile</button>
+                </li>
+
+
+
+
+              </ul>
+              <div class="tab-content pt-2">
+    <!-- Start Profile Overview -->
+    <div class="tab-pane fade show active profile-overview" id="profile-overview">
+        <h5 class="card-title">About</h5>
+        <p class="small fst-italic">{{ comp_profile.comp_bio }}</p>
+
+        <h5 class="card-title">Profile Details</h5>
+
+        <div class="row">
+            <div class="col-lg-3 col-md-4 label">Company Name</div>
+            <div class="col-lg-9 col-md-8">{{ comp_profile.comp_name  }}</div>
+        </div>
+
+
+
+        <div class="row">
+            <div class="col-lg-3 col-md-4 label">Location</div>
+            <div class="col-lg-9 col-md-8">{{ comp_profile.comp_location }}</div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-3 col-md-4 label">Specialization</div>
+            <div class="col-lg-9 col-md-8">{{ comp_profile.comp_type }}</div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-3 col-md-4 label">Contact</div>
+            <div class="col-lg-9 col-md-8">{{ comp_profile.comp_contact }}</div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-3 col-md-4 label">Registration ID</div>
+            <div class="col-lg-9 col-md-8">{{ comp_profile.comp_id }}</div>
+        </div>
+         <div class="row">
+            <div class="col-lg-3 col-md-4 label">Agent Name</div>
+            <div class="col-lg-9 col-md-8">{{ comp_profile.comp_agent }}</div>
+        </div>
+<!--        <div class="row">-->
+<!--            <div class="col-lg-3 col-md-4 label">Company Image</div>-->
+<!--            <div class="col-lg-9 col-md-8">{{ comp_profile.comp_image }}</div>-->
+<!--        </div>-->
+                       </div>
+              </div>
+
+    </div>
+    </div>
+            </div>
+    <!-- End Profile Overview -->
+
+
+                <div class="tab-pane fade profile-edit pt-3" id="profile-edit">
+
+                  <!-- Profile Edit Form -->
+                <form method="POST" enctype="multipart/form-data" action="{% url 'profile' %}" id="edit-profile-form">
+                        {% csrf_token %}
+                        <div class="row mb-3">
+                            <div class="row mb-3">
+                                <label for="profileImage" class="col-md-4 col-lg-3 col-form-label">Profile Image</label>
+                                <div class="col-md-8 col-lg-9">
+                                    <img src="{{ comp_profile.comp_image.url }}" alt="Profile">
+                                    <div class="pt-2">
+                                        <label for="id_profile_picture" class="btn btn-primary btn-sm">
+                                            <i class="bi bi-upload"></i>
+                                        </label>
+                                        <div style="display:none">{{ form.comp_image }}</div>
+                                        <a href="#" class="btn btn-danger btn-sm" title="Remove my profile image"><i
+                                                class="bi bi-trash"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+
+                        <div class="row mb-3">
+                            <label for="comp_name" class="col-md-4 col-lg-3 col-form-label">Company Name</label>
+                            <div class="col-md-8 col-lg-9">
+                                {{ form.comp_name }}
+                            </div>
+                        </div>
+
+<!--                        <div class="row mb-3">-->
+<!--                            <label for="last_name" class="col-md-4 col-lg-3 col-form-label">Last Name</label>-->
+<!--                            <div class="col-md-8 col-lg-9">-->
+<!--                                {{ form.last_name }}-->
+<!--                            </div>-->
+<!--                        </div>-->
+
+                        <div class="row mb-3">
+                            <label for="comp_id" class="col-md-4 col-lg-3 col-form-label">Company Registration</label>
+                            <div class="col-md-8 col-lg-9">
+                                {{ form.comp_id }}
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <label for="comp_bio" class="col-md-4 col-lg-3 col-form-label">Bio</label>
+                            <div class="col-md-8 col-lg-9">
+                                {{ form.comp_bio }}
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <label for="comp_location" class="col-md-4 col-lg-3 col-form-label">Location</label>
+                            <div class="col-md-8 col-lg-9">
+                                {{ form.comp_location}}
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <label for="comp_contact" class="col-md-4 col-lg-3 col-form-label">Contact</label>
+                            <div class="col-md-8 col-lg-9">
+                                {{ form.comp_contact }}
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <label for="comp_type" class="col-md-4 col-lg-3 col-form-label">Specialization</label>
+                            <div class="col-md-8 col-lg-9">
+                                {{ form.comp_type }}
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <label for="comp_agent" class="col-md-4 col-lg-3 col-form-label">Agent Name</label>
+                            <div class="col-md-8 col-lg-9">
+                                {{ form.comp_agent }}
+                            </div>
+                        </div>
+
+<!--                        <div class="row mb-3">-->
+<!--                            <label for="experience" class="col-md-4 col-lg-3 col-form-label">Experience</label>-->
+<!--                            <div class="col-md-8 col-lg-9">-->
+<!--                                {{ form.experience }}-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                           <div class="row mb-3">-->
+<!--                            <label for="experience" class="col-md-4 col-lg-3 col-form-label">office address</label>-->
+<!--                            <div class="col-md-8 col-lg-9">-->
+<!--                                {{ form.office_address }}-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                        <div class="row mb-3">-->
+<!--                            <label for="experience" class="col-md-4 col-lg-3 col-form-label">Office Location</label>-->
+<!--                            <div class="col-md-8 col-lg-9">-->
+<!--                                {{ form.office_location}}-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    <div class="row mb-3">-->
+<!--                            <label for="experience" class="col-md-4 col-lg-3 col-form-label">practice area</label>-->
+<!--                            <div class="col-md-8 col-lg-9">-->
+<!--                                {{ form.practice_areas}}-->
+<!--                            </div>-->
+<!--                        </div>-->
+
+
+
+                        <div class="text-center">
+                            <button type="submit" class="btn btn-primary">Save Changes</button>
+                        </div>
+                    </form>
+                  <!-- End Profile Edit Form -->
+
+                </div>
+
+
+</div>
+
+
+
+
+    </section>
+
+  </main><!-- End #main -->
+
+
+ {% endblock %}

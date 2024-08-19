@@ -1,0 +1,131 @@
+{% extends 'event_export/event_base.html' %}
+
+{% block content %}
+
+<style>
+  form {
+    max-width: 500px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+
+  label {
+    display: block;
+    margin-bottom: 10px;
+    font-weight: bold;
+  }
+
+  input[type="text"],
+  input[type="email"],
+  input[type="number"],
+  select {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-size: 16px;
+  }
+
+  input[type="radio"] {
+    margin-right: 10px;
+  }
+
+  button[type="submit"] {
+    background-color: #007bff;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-left: 50px;
+  }
+
+  button[type="submit"]:hover {
+    background-color: #0056b3;
+  }
+
+  /* Additional styles for disabled input */
+  input:disabled {
+    background-color: #f2f2f2;
+    color: #888;
+    cursor: not-allowed;
+  }
+</style>
+<br><br><br>
+<h3>Booking with {{ company_name }} events</h3>
+<marquee behavior="scrollamount"  direction="left"  scrollamount="7"  id="mar1" style="color: red">
+  You may be required to pay additionally for the extra features selected apart from the default features </marquee>
+
+<form method="post">
+  {% csrf_token %}
+  <!-- Include the event category field -->
+  <label for="event_category">Event Category:</label>
+  <input type="text" id="event_category" name="event_category" value="{{ event_category }}" disabled>
+
+  <label for="customer_name">Customer Name:</label>
+  <input type="text" id="customer_name" name="customer_name" required>
+
+  <label for="customer_number">Customer Number:</label>
+  <input type="text" id="customer_number" name="customer_number" required>
+
+  <label for="customer_email">Customer Email:</label>
+  <input type="email" id="customer_email" name="customer_email" required>
+
+  <label for="location">Location:</label>
+  <input type="text" id="location" name="location" required>
+
+  <label for="landmark">Landmark:</label>
+  <input type="text" id="landmark" name="landmark" required>
+
+  <label for="district">District:</label>
+<select id="district" name="district" required>
+  <option value="Alappuzha">Alappuzha</option>
+  <option value="Ernakulam">Ernakulam</option>
+  <option value="Idukki">Idukki</option>
+  <option value="Kannur">Kannur</option>
+  <option value="Kasargod">Kasargod</option>
+  <option value="Kollam">Kollam</option>
+  <option value="Kottayam">Kottayam</option>
+  <option value="Kozhikkod">Kozhikkod</option>
+  <option value="Malappuram">Malappuram</option>
+  <option value="Palakkad">Palakkad</option>
+  <option value="Pathanamthitta">Pathanamthitta</option>
+  <option value="Thrissur">Thrissur</option>
+  <option value="Trivandrum">Trivandrum</option>
+  <option value="Wayanad">Wayanad</option>
+  <!-- Add more options as needed -->
+</select>
+
+
+<!--  <label for="district">District:</label>-->
+<!--  <input type="text" id="district" name="district" required>-->
+
+  <label for="duration">Duration (in days):</label>
+  <input type="number" id="duration" name="duration" required>
+
+  <label for="date">Date:</label>
+  <input type="date" id="date" name="date" required>
+
+  <label for="food_type">Food Type:</label>
+  <select id="food_type" name="food_type" required>
+    <option value="Boffey">Boffey</option>
+    <option value="A la carte">A la carte</option>
+    <option value="Default">Default</option>
+  </select>
+
+  <label for="food_type">Require DJ Party?</label>
+
+  {{ form.dj_party_needed }}
+
+  <button type="submit">Submit Booking and Proceed to payment</button>
+</form>
+{% endblock %}
+
+
+

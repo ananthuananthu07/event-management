@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile</title>
+    <!-- Add your CSS links here -->
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            min-height: 100vh;
+            background-color: #f6f6f6; /* Light gray background */
+        }
+
+        .sidebar {
+            width: 250px;
+            background-color: #343a40; /* Dark gray sidebar */
+            color: #fff; /* White text */
+            padding: 20px;
+            box-sizing: border-box;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .content {
+            flex: 1;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        .menu-item {
+            margin-bottom: 15px;
+        }
+
+        .menu-item a {
+            display: block;
+            padding: 10px;
+            border-radius: 5px;
+            background-color: #495057; /* Dark gray menu item */
+            text-decoration: none;
+            color: #fff; /* White text */
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+        }
+
+        .menu-item a:hover {
+            background-color: #343a40; /* Darker gray on hover */
+        }
+
+        .content h4 {
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        .user-info {
+            background-color: #fff; /* White background */
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .user-info h5 {
+            margin-top: 0;
+            font-size: 24px;
+            color: #333;
+            margin-bottom: 10px;
+            border-bottom: 2px solid #007bff; /* Blue border bottom */
+            padding-bottom: 5px;
+        }
+
+        .user-info p {
+            margin: 10px 0;
+            font-size: 16px;
+            color: #666;
+        }
+
+        .dashboard-link {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #007bff; /* Blue button background */
+            color: #fff; /* White text */
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        .dashboard-link:hover {
+            background-color: #0056b3; /* Darker blue on hover */
+        }
+    </style>
+</head>
+<body>
+    <div class="sidebar">
+        <h4>User Dashboard</h4>
+        <div class="menu">
+            <div class="menu-item"><a href="{% url 'booking_history' %}">View Your Bookings</a></div>
+            <div class="menu-item"><a href="{% url 'view_chats' %}" class="list-group-item">Chats</a></div>
+            <div class="menu-item"><a href="{% url 'reset_password' %}">Change Password</a></div>
+            <div class="menu-item"><a href="{% url 'logout' %}">Logout</a></div>
+            <div class="menu-item"><a href="#">Edit Profile</a></div>
+            <div class="menu-item"><a href="#">Delete Account</a></div>
+            <!-- Add more options as needed -->
+        </div>
+    </div>
+    <div class="content">
+
+        <h3>User Profile</h3>
+
+        <div class="user-info">
+            <h5>Welcome, {{ user.first_name }}</h5>
+
+            <p>Email: {{ user.email }}</p>
+                        <p>Username: {{ user.username }}</p>
+       <div style="width:70px;"><a href="{% url 'index' %}"><h4>Go Back</h4></a></div>
+        {% block content %}
+        {% endblock %}
+
+            <!-- Add more user information as needed -->
+        </div>
+    </div>
+</body>
+</html>

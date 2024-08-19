@@ -1,0 +1,90 @@
+{% extends 'event_export/company_base.html' %}
+
+{% block content %}
+<style>
+    /* CSS styles */
+    .contact-list {
+        max-width: 600px;
+        margin: 0 auto;
+        padding: 20px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        background-color: #f9f9f9;
+    }
+
+    .contact-item {
+        margin-bottom: 15px;
+        padding: 10px;
+        border-radius: 5px;
+        background-color: #fff;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .contact-name {
+        font-size: 18px;
+        font-weight: bold;
+        color: #333;
+        margin-bottom: 5px;
+    }
+
+    .contact-message {
+        font-size: 16px;
+        color: #666;
+        margin-bottom: 10px;
+    }
+
+    .reply-link {
+        color: #007bff;
+        text-decoration: none;
+        font-weight: bold;
+    }
+
+    /* New Styles */
+    .container {
+        text-align: center;
+        padding-top: 50px;
+    }
+
+    h4 {
+        font-size: 28px;
+        color: #333;
+        margin-bottom: 30px;
+    }
+
+    ul {
+        list-style-type: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    li {
+        margin-bottom: 10px;
+    }
+
+    a {
+        text-decoration: none;
+        color: #007bff;
+        font-size: 20px;
+    }
+
+    a:hover {
+        text-decoration: underline;
+    }
+</style>
+<br><br><br><br>
+<div class="container">
+    <h4 style="margin-top:-70px;">Contact List</h4>
+    {% if displayed_usernames %}
+    <ul>
+        {% for username in displayed_usernames %}
+        <li>
+            <a href="{% url 'chat_with_user' username=username %}">Message From {{ username }}</a>
+        </li>
+        {% endfor %}
+    </ul>
+    {% else %}
+    <p>There are no messages for you.</p>
+    {% endif %}
+</div>
+
+{% endblock %}

@@ -1,0 +1,70 @@
+{% extends 'event_export/event_base.html' %}
+
+{% block content %}
+    <style>
+        /* CSS Styles */
+        .payment-form-container {
+            margin: 50px auto;
+            width: 80%;
+            max-width: 500px;
+            padding: 20px;
+            background-color: #f9f9f9;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .payment-form-container:hover {
+            box-shadow: 0 0 17px rgba(0, 0, 0, 0.5);
+
+        }
+
+        .payment-form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .payment-form label {
+            margin-bottom: 10px;
+        }
+
+        .payment-form input[type="text"],
+        .payment-form input[type="email"],
+        .payment-form select {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .proceed-button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .proceed-button:hover {
+            background-color: #45a049;
+        }
+    </style>
+<br><br>
+
+    <div class="payment-form-container"><br><br><br>
+    <h3>Choose Payment Option</h3>
+    <form method="post" class="payment-form">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="proceed-button">Proceed</button>
+    </form>
+    {% if selected_option %}
+        {% if selected_option == 'debit_card' %}
+            {% include 'debit_card_payment_form.html' %}
+        {% elif selected_option == 'net_banking' %}
+            {% include 'net_banking_payment_form.html' %}
+        {% endif %}
+    {% endif %}
+</div>
+{% endblock %}

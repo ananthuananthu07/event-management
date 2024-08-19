@@ -1,0 +1,76 @@
+{% extends 'event_export/event_base.html' %}
+{% load static %}
+{% block title%}
+Register
+{% endblock %}
+{% block content %}
+
+
+  <div class = "container mt-5 ">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="">
+                <div class="card mt-3 shadow">
+                     <div class="card-header text-center" style="color:blue;">
+                           <h4>Register here</h4>
+                     </div>
+                    <div class="card-body">
+
+                <form method="post">
+                  {% csrf_token %}
+                  {{ form.non_field_errors }}
+
+                  <div class="form-group">
+                    <label for="{{ form.first_name.id_for_label }}">Full Name</label>
+                    {{ form.first_name }}
+                    {{ form.first_name.errors }}
+                  </div>
+
+
+                  <div class="form-group">
+                    <label for="{{ form.email.id_for_label }}">Email</label>
+                    {{ form.email }}
+                    {{ form.email.errors }}
+                  </div>
+
+                  <div class="form-group">
+                    <label for="{{ form.username.id_for_label }}">Username</label>
+                    {{ form.username }}
+                    {{ form.username.errors }}
+                  </div>
+
+                  <div class="form-group">
+                    <label for="{{ form.password1.id_for_label }}">Password</label>
+                    {{ form.password1 }}
+                    {{ form.password1.errors }}
+                  </div>
+
+                  <div class="form-group">
+                    <label for="{{ form.password2.id_for_label }}">Confirm Password</label>
+                    {{ form.password2 }}
+                    {{ form.password2.errors }}
+                  </div>
+
+                  <div class="form-group form-check">
+                    {{ form.is_company}}
+                    <label class="form-check-label" for="{{ form.is_client.id_for_label }}">company</label>
+
+                  </div>
+
+                  <div class="form-group form-check">
+                    {{ form.is_customer }}
+                    <label class="form-check-label" for="{{ form.is_lawyer.id_for_label }}">customer</label>
+                  </div>
+
+                  <button type="submit" class="btn btn-primary mb-3">Register</button>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+  </div>
+
+
+{% endblock %}

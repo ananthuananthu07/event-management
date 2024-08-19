@@ -1,0 +1,113 @@
+<!-- lawyer_view.html -->
+{% extends 'event_export/event_base.html' %}
+{% load static %}
+{% block content %}
+<main id="main" class="main" style="margin-left:0px;">
+    <section class="section profile" style="margin-top: 100px">
+        <div class="row mt-4">
+            <div class="col-xl-4">
+                <div class="card" style="background-color: white;">
+                    <div class="card-body profile-card pt-1 d-flex flex-column align-items-center">
+                        <img src="{{ company.comp_image.url }}" alt="Profile" class="rounded-circle" height="90px" width="110px">
+                        <h4>{{ company.user.first_name }}</h4>
+                        <h5>{{ company.comp_type }}</h5>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-8">
+                <div class="card" style="background-color: white;">
+                    <div class="card-body pt-3">
+                        <!-- Bordered Tabs -->
+                        <ul class="nav nav-tabs nav-tabs-bordered">
+                            <li class="nav-item">
+                                <button class="nav-link active" data-bs-toggle="tab"
+                                    data-bs-target="#profile-overview">Overview</button>
+                            </li>
+                        </ul>
+                        <div class="tab-content pt-2">
+                            <div class="tab-pane fade show active profile-overview" id="profile-overview">
+                                <h5 class="card-title">About</h5>
+                                <p class="small fst-italic">{{ company.comp_bio }}</p>
+            <h5 class="card-title">Profile Details</h5>
+
+        <div class="row">
+            <div class="col-lg-3 col-md-4 label">Company Name</div>
+            <div class="col-lg-9 col-md-8">{{ company.user.first_name  }}</div>
+        </div>
+                             <div class="row">
+            <div class="col-lg-3 col-md-4 label">Contact Number</div>
+            <div class="col-lg-9 col-md-8">{{ company.comp_contact }}</div>
+        </div>
+                             <div class="row">
+            <div class="col-lg-3 col-md-4 label">Location</div>
+            <div class="col-lg-9 col-md-8">{{ company.comp_location }}</div>
+        </div>
+                             <div class="row">
+            <div class="col-lg-3 col-md-4 label">Registration Number</div>
+            <div class="col-lg-9 col-md-8">{{ company.comp_id }}</div>
+        </div>
+                             <div class="row">
+            <div class="col-lg-3 col-md-4 label">Agent Name</div>
+            <div class="col-lg-9 col-md-8">{{ company.comp_agent }}</div>
+                                 <div>
+                                        <a href="{% url 'display_gallery' company.id %}" class="btn btn-secondary">View Gallery</a>
+                                    </div>
+        </div></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-3 col-md-4 label"></div>
+            <div class="col-lg-9 col-md-8 label">
+                 {% if user.is_authenticated %}
+
+                <h5 class="card-title mt-4">Write a Review</h5>
+                <form method="post" action="{% url 'compview' company.id %}">
+                    {% csrf_token %}
+                    <div class="form-floating w-80 mt-3 team-social">
+                        {{ review_form }}
+                        <button type="submit" style="background-color:#aa9166">Add Review</button>
+                    </div>
+                </form>
+                   {% else %}
+
+        <p>You need to <a href="{% url 'login' %}" style="color:blue;">log in</a> to add a review.</p>
+    {% endif %}
+
+
+                <h4 id="toggleReviewsBtn" style="color:blue;">Reviews ({{ reviews.count }})</h4>
+                <div id="reviewSection" class="container mt-2" style="display: none;">
+                    <div class="container mt-2">
+                        {% if reviews %}
+                        {% for review in reviews %}
+                        <div class="card">
+                            <div class="card-header">
+                                <span style="font-size: 12px;">{{ review.created_at }}</span>
+                            </div>
+                            <div class="card-body">
+                                <h6 class="card-text">{{ review.comment }}</h6>
+                            </div>
+                        </div>
+                        <br>
+                        {% endfor %}
+                        </div>
+                        </div>
+                        {% else %}
+                        <p>No reviews yet.</p>
+                        {% endif %}
+                    </div>
+                </div>
+
+    </section>
+</main>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $("#toggleReviewsBtn").click(function () {
+            $("#reviewSection").toggle();
+        });
+    });
+</script>
+{% endblock %}

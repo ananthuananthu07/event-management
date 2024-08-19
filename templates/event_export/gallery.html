@@ -1,0 +1,45 @@
+{% extends 'event_export/event_base.html' %}
+{% load static %}
+{% block content %}
+<style>
+    .gallery {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+        grid-gap: 20px;
+        justify-content: center;
+        align-items: center;
+        padding: 20px;
+    }
+
+    .gallery-image {
+        width: 100%;
+        height: auto;
+        border-radius: 8px;
+        transition: transform 0.3s ease-in-out;
+    }
+
+    .gallery-image:hover {
+        transform: scale(1.05);
+    }
+      .no-companies {
+            font-size: 20px;
+            color: #555;
+            margin-top: 30px;
+        }
+
+</style>
+
+<br><br><br>
+<div style="text-align: center;"><br><br>
+    <h4 style="color: #333;">Gallery</h4>
+    <div class="gallery">
+        {% if gallery_photos %}
+        {% for photo in gallery_photos %}
+            <img src="{{ photo.image.url }}" alt="{{ photo }}" class="gallery-image" style="width: 100%; height: 250px; object-fit: cover;">
+        {% endfor %}
+        {% else %}
+        <p class="no-companies">No Images Available</p>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

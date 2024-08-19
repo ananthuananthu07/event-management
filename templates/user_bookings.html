@@ -1,0 +1,76 @@
+{% extends 'event_export/profile.html' %}
+{% block content %}
+<head>
+
+    <title>Booking History</title>
+    <style>
+
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            color: #333;
+            text-align: center;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        li {
+            margin-bottom: 20px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 15px;
+            background-color: #f5f5f5;
+        }
+
+        p {
+            margin: 0;
+            color: #666;
+        }
+
+        p:first-child {
+            font-weight: bold;
+        }
+    </style>
+     <script>
+        function confirmDelete(form) {
+            if (confirm("Are you sure you want to delete this booking?")) {
+                // If user confirms, submit the form
+                form.submit();
+                alert("Item successfully deleted.");
+            }
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h4 style="text-align: center">Booking History</h4>
+        {% if bookings %}
+            <ul>
+            {% for booking in bookings %}
+                <li>
+                    <p>Company Name: {{ booking.company_name }}</p>
+                    <p>Event Name: {{ booking.comp_cat.comp_type }}</p>
+                    <p>Event Date: {{ booking.date }}</p>
+                      <form action="{% url 'delete_booking2' booking.id %}" method="post" style="display: inline;" onsubmit="confirmDelete(this); return false;">
+                        {% csrf_token %}
+                        <button type="submit" style="margin-left: 330px; font-size: 15px; padding: 6px; cursor: crosshair">Delete</button>
+                    </form>
+                </li>
+            {% endfor %}
+            </ul>
+        {% else %}
+            <p>No bookings found.</p>
+        {% endif %}
+    </div>
+</body>
+{% endblock %}

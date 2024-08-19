@@ -1,0 +1,103 @@
+{% extends 'event_export/company_base.html' %}
+
+{% block content %}
+<head>
+    <title>Company Bookings</title>
+    <style>
+        /* CSS Styles */
+
+        h4 {
+            margin-left: 200px;
+            color: #333;
+            text-align: center;
+            margin-top: 10px;
+        }
+        table {
+            margin-left: 310px;
+            width: 78%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: center;
+        }
+        th {
+            background-color: #f2f2f2;
+            color: #333;
+        }
+        tbody tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        tbody tr:hover {
+            background-color: #e9e9e9;
+        }
+        button {
+            background-color: #d9534f;
+            color: #fff;
+            border: none;
+            padding: 8px 12px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #c9302c;
+        }
+    </style>
+    <script>
+        function confirmDelete(form) {
+            if (confirm("Are you sure you want to delete this booking?")) {
+                // If user confirms, submit the form
+                form.submit();
+                alert("Item successfully deleted.");
+            }
+        }
+    </script>
+</head>
+<body><br><br><br><br>
+    <h4>Company Bookings</h4><hr>
+{% if company_bookings %}
+    <table>
+        <thead>
+            <tr>
+                <th>Customer Name</th>
+                <th>Number</th>
+                <th>Mail</th>
+                <th>Location</th>
+                <th>Landmark</th>
+                <th>District</th>
+                <th>Duration</th>
+                <th>Date</th>
+                <th>Food Type</th>
+                <th>DJ Party</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for booking in company_bookings %}
+            <tr>
+                <td>{{ booking.customer_name }}</td>
+                <td>{{ booking.customer_number }}</td> <!-- Change here -->
+                <td>{{ booking.customer_email }}
+                <td>{{ booking.location }}</td>
+                <td>{{ booking.landmark }}</td>
+                <td>{{ booking.district }}</td>
+                <td>{{ booking.duration }}</td>
+                <td>{{ booking.date }}</td>
+                <td>{{ booking.food_type }}</td>
+<td>{% if booking.dj_party_needed %}Yes{% else %}No{% endif %}</td>
+                <td>
+                    <form action="{% url 'delete_booking' booking.id %}" method="post" onsubmit="confirmDelete(this); return false;">
+                        {% csrf_token %}
+                        <button type="submit">Delete</button>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% else %}
+<p>You Have No Bookings As of Now..</p>
+{% endif %}
+</body>
+{% endblock %}

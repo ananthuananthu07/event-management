@@ -1,0 +1,15 @@
+{% extends 'event_export/event_base.html' %}
+
+{% block content %}
+<br><br><br>
+<div style="text-align: center; margin-top: 50px;">
+    <h4 style="color: #4CAF50; font-size: 36px;">Payment Successful!</h4>
+    <p style="font-size: 18px; color: #666;">Thank you for your payment.</p>
+    <p style="font-size: 16px; color: #888;">Your transaction has been successfully processed.</p>
+    <hr style="border-top: 1px solid #ddd; margin: 20px auto; width: 80%;">
+    <p style="font-size: 16px; color: #888;">We look forward to seeing you at the event!</p>
+    <button style="padding: 10px 20px; background-color: #4CAF50; color: white; border: none; border-radius: 5px; cursor: pointer; transition: background-color 0.3s;">
+        <a href="{% url 'index' %}" style="text-decoration: none; color: white;">Go Back to Home Page</a>
+    </button>
+</div>
+{% endblock %}

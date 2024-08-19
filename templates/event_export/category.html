@@ -1,0 +1,45 @@
+{% extends 'event_export/event_base.html' %}
+{% load static %}
+{% block content %}
+
+<style>
+    .product-thumb:hover img {
+        transform: scale(1.4);
+    }
+</style>
+
+<section class="featured-product section-padding">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 text-center mb-5">
+                <h2 class="section-title">EVENTS AVAILABLE</h2>
+            </div>
+            {% for category in categories %}
+            <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
+                <div class="product-card border rounded d-flex flex-column h-100">
+                    <div class="product-thumb d-flex justify-content-center align-items-center" style="background-color: #f9f9f9;">
+                        <a href="{% url 'category_companies' category.id %}">
+                            {% if category.event_image %}
+                            <img src="{{category.event_image.url}}" class="img-fluid product-image" style="max-height: 200px; width: auto; max-width: 100%;" alt="{{category.event_name}}">
+                            {% endif %}
+                        </a>
+                    </div>
+                    <div class="product-info text-center p-4 flex-grow-1 d-flex flex-column justify-content-between" style="background-color: #fff;">
+                        <div>
+                            <h3 class="product-title mb-3">
+                                <a href="{% url 'category_companies' category.id %}" class="product-title-link">{{category.event_name}}</a>
+                            </h3>
+                            <p class="product-description mb-3" style="font-size: 16px;">{{category.event_des}}</p>
+                            <p class="product-price mb-3" style="font-size: 14px;">Starts From Rs.{{category.event_prize}}</p>
+                        </div>
+                        <!-- Add link to view companies offering this category -->
+                        <a href="{% url 'category_companies' category.id %}" class="btn btn-primary btn-sm mt-2">View Companies Offering</a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+{% endblock %}
