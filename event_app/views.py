@@ -80,7 +80,7 @@ def log_out(request):
 
 # INDEX PAGE
 def event_index(request):
-    return render(request, 'event_export/index.html')
+    return render(request, 'index.html')
 
 # ABOUT/STORY PAGE
 def event_about(request):
